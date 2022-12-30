@@ -53,6 +53,8 @@ def get(url, fields=None, where=None, limit=None, **kwargs):
     """
     # Get the max record count
     metadata = requests.get(url, params=dict(f="pjson")).json()
+    if('error' in metadata and metadata['error']['code'] != 200):
+        return None
     max_record_count = metadata["maxRecordCount"]
 
     # default behavior matches all features
